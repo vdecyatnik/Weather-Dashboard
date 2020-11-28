@@ -2,10 +2,10 @@
 
 // WHEN the user clicks the search button for a city
 
- function handleSearchEvent() {
-    makeWeatherRequest(search);
-//  Then i get the value entered into the search input
- }
+//  function handleSearchEvent() {
+//     makeWeatherRequest(search);
+// //  Then i get the value entered into the search input
+//  }
 
 
 // THEN i am presented with current and future conditions for that city and that city is added to the search history
@@ -15,26 +15,40 @@
 
  function makeWeatherRequest(search){ 
 //Next make the request to the URL with Jquery Ajax
- $.ajax( queryUrl ).then ( function(response) {
+ 
+    var queryURL= "https://api.openweathermap.org/data/2.5/weather?q=" + city +  "&appid=b00842725560772b42346de28aa7a4f1";
 
+$.ajax( queryUrl ).then ( function(response) {
+
+
+
+        
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then( function(response) {
+            console.log(response);
+        }
     //Start rendering data to the HTML
     //THEN get the lat and long out of the response object 
     //Next call the makeOneCallRequest(lat, long) and pass in the lat and long 
     
 
-} );
+        
 
-function makeOneCallRequest(lat, lon){
-//then build URL 
-//next make the request to the URL with JQuery ajax
+    
+ 
+// function makeOneCallRequest(lat, lon){
+// //then build URL 
+// //next make the request to the URL with JQuery ajax
 
-//can use one call api for 5 day forecast and UVI
+// //can use one call api for 5 day forecast and UVI
 
-$.ajax( queryUrl ).then( function(response){
+// $.ajax( queryUrl ).then( function(response){
 
-    //Finish rendering data to the HTML
+//     //Finish rendering data to the HTML
 
-} );
+// } );
 
 
 
@@ -79,4 +93,4 @@ $.ajax( queryUrl ).then( function(response){
 // Card for main content area
 
 //template literal blocks/ make html static and then replace with javascript
-
+ 
