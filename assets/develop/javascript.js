@@ -7,37 +7,37 @@
 // //  Then i get the value entered into the search input
 //  }
 
+var apiKey="b00842725560772b42346de28aa7a4f1";
+function weatherRequest(search) {
 
+    $.ajax({
+    url:"https://api.openweathermap.org/data/2.5/forecast?q=" + search + "&appid=" + apiKey,
+    method:"GET"
+  }).then(function(response){
+  
+    console.log(reponse);
+    
+
+  })
+}
 // THEN i am presented with current and future conditions for that city and that city is added to the search history
 
 // NEXT we need to build the URL for the first API request ("https://")
 // Use Current weather API q and API Key
 
- function makeWeatherRequest(search){ 
-//Next make the request to the URL with Jquery Ajax
- 
-    var queryURL= "https://api.openweathermap.org/data/2.5/weather?q=" + city +  "&appid=b00842725560772b42346de28aa7a4f1";
-
-$.ajax( queryUrl ).then ( function(response) {
-
-
-
-        
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then( function(response) {
-            console.log(response);
-        }
-    //Start rendering data to the HTML
-    //THEN get the lat and long out of the response object 
-    //Next call the makeOneCallRequest(lat, long) and pass in the lat and long 
-    
-
-        
+// function makeWeatherRequest() {
+//     //Next make the request to the URL with Jquery Ajax
 
     
- 
+
+
+
+//     //Start rendering data to the HTML
+//     //THEN get the lat and long out of the response object 
+//     //Next call the makeOneCallRequest(lat, long) and pass in the lat and long 
+//     )}
+
+
 // function makeOneCallRequest(lat, lon){
 // //then build URL 
 // //next make the request to the URL with JQuery ajax
@@ -93,4 +93,3 @@ $.ajax( queryUrl ).then ( function(response) {
 // Card for main content area
 
 //template literal blocks/ make html static and then replace with javascript
- 
