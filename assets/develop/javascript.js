@@ -8,18 +8,29 @@
 //  }
 
 var apiKey="b00842725560772b42346de28aa7a4f1";
-function weatherRequest(search) {
+
+
+var queryUrl= "https://api.openweathermap.org/data/2.5/weather?q=seattle" + "&appid=" + apiKey;
+function weatherRequest(){
+
 
     $.ajax({
-    url:"https://api.openweathermap.org/data/2.5/forecast?q=" + search + "&appid=" + apiKey,
-    method:"GET"
+    url:queryUrl,
+    method:"GET",
   }).then(function(response){
   
-    console.log(reponse);
+    console.log(response);
+    console.log(response.name);
+    console.log(response.main.temp);
+    console.log(response.main.humidity);
+    console.log(response.wind.speed);
     
-
   })
+
 }
+weatherRequest();
+
+
 // THEN i am presented with current and future conditions for that city and that city is added to the search history
 
 // NEXT we need to build the URL for the first API request ("https://")
