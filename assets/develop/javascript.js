@@ -7,10 +7,17 @@
 // //  Then i get the value entered into the search input
 //  }
 
+
+var currentDay = moment();
+console.log(currentDay);
+
+
+
+
 var apiKey="b00842725560772b42346de28aa7a4f1";
+//using current weather API
 
-
-var queryUrl= "https://api.openweathermap.org/data/2.5/weather?q=seattle" + "&appid=" + apiKey;
+var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=seattle" + "&appid=" + apiKey;
 function weatherRequest(){
 
 
@@ -24,11 +31,26 @@ function weatherRequest(){
     console.log(response.main.temp);
     console.log(response.main.humidity);
     console.log(response.wind.speed);
+    console.log(response.weather[0].icon);
     
   })
 
 }
 weatherRequest();
+
+var searchButton1 = $("#searchButton");
+console.log(searchButton);
+
+searchButton1.click( function (event)  {
+
+  console.log(searchButton1);
+
+
+});
+
+
+
+
 
 
 // THEN i am presented with current and future conditions for that city and that city is added to the search history
