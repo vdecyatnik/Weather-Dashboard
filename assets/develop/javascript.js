@@ -21,11 +21,15 @@ var apiKey="b00842725560772b42346de28aa7a4f1";
 
 
 //var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q={cityname}" + search + "&appid=" + apiKey;
-function weatherRequest(search){
+function weatherRequest(){
+
+    // user input of city name
+    var city = $("#citySearch").val();
 
 
     $.ajax({
-    url: "https://api.openweathermap.org/data/2.5/weather?q=seattle"  + "&appid=" + apiKey,
+      
+    url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey,
 
     method:"GET",
 
