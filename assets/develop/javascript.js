@@ -1,29 +1,34 @@
-//GIVEN a weather dashboard with form inputs
-
-// WHEN the user clicks the search button for a city
-
-//  function handleSearchEvent() {
-//     makeWeatherRequest(search);
-// //  Then i get the value entered into the search input
-//  }
 
 
+// Variables
 var currentDay = moment();
 console.log(currentDay);
 
 
+var searchButton = $("#searchButton");
 
-
+// Current weather API
 var apiKey="b00842725560772b42346de28aa7a4f1";
-//using current weather API
 
-var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=seattle" + "&appid=" + apiKey;
-function weatherRequest(){
+
+
+//Variables for Rendering Current Data
+ var name = $("<h4>");
+ var temperature = $("<h4>");
+ var humidity = $("<h4>");
+ var windSpeed = $("<h4>");
+ //var weatherIcon = 
+
+
+//var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q={cityname}" + search + "&appid=" + apiKey;
+function weatherRequest(search){
 
 
     $.ajax({
-    url:queryUrl,
+    url: "https://api.openweathermap.org/data/2.5/weather?q=seattle"  + "&appid=" + apiKey,
+
     method:"GET",
+
   }).then(function(response){
   
     console.log(response);
@@ -32,20 +37,32 @@ function weatherRequest(){
     console.log(response.main.humidity);
     console.log(response.wind.speed);
     console.log(response.weather[0].icon);
+
+
+
+
+
+
+
+
+
+
+
+
     
   })
 
 }
 weatherRequest();
 
-var searchButton1 = $("#searchButton");
-console.log(searchButton);
 
-searchButton1.click( function (event)  {
+// Event Listener for the Search Button
+searchButton.click( function (event)  {
 
-  console.log(searchButton1);
-
-
+  var citySearched = $('#citySearch').val();
+  console.log(searchButton);
+  console.log(citySearched);
+  weatherRequest();
 });
 
 
