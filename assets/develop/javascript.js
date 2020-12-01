@@ -8,33 +8,33 @@ console.log(currentDay);
 var searchButton = $("#searchButton");
 
 // Current weather API
-var apiKey="b00842725560772b42346de28aa7a4f1";
+var apiKey = "b00842725560772b42346de28aa7a4f1";
 
 
 
 //Variables for Rendering Current Data
- var name = $("<h4>");
- var temperature = $("<h4>");
- var humidity = $("<h4>");
- var windSpeed = $("<h4>");
- //var weatherIcon = 
+var name = $("<h4>");
+var temperature = $("<h4>");
+var humidity = $("<h4>");
+var windSpeed = $("<h4>");
+//var weatherIcon = 
 
 
 //var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q={cityname}" + search + "&appid=" + apiKey;
-function weatherRequest(){
+function weatherRequest() {
 
-    // user input of city name
-    var city = $("#citySearch").val();
+  // user input of city name
+  var city = $("#citySearch").val();
 
 
-    $.ajax({
-      
-    url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey,
+  $.ajax({
 
-    method:"GET",
+    url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + apiKey,
 
-  }).then(function(response){
-  
+    method: "GET",
+
+  }).then(function (response) {
+
     console.log(response);
     console.log(response.name);
     console.log(response.main.temp);
@@ -42,18 +42,6 @@ function weatherRequest(){
     console.log(response.wind.speed);
     console.log(response.weather[0].icon);
 
-
-
-
-
-
-
-
-
-
-
-
-    
   })
 
 }
@@ -61,7 +49,7 @@ weatherRequest();
 
 
 // Event Listener for the Search Button
-searchButton.click( function (event)  {
+searchButton.click(function (event) {
 
   var citySearched = $('#citySearch').val();
   console.log(searchButton);
@@ -69,32 +57,69 @@ searchButton.click( function (event)  {
   weatherRequest();
 });
 
-
-
-
-
-
 // THEN i am presented with current and future conditions for that city and that city is added to the search history
 
 // NEXT we need to build the URL for the first API request ("https://")
 // Use Current weather API q and API Key
 
 // function makeWeatherRequest() {
-//     //Next make the request to the URL with Jquery Ajax
+// Next make the request to the URL with Jquery Ajax
 
-    
-
-
-
-//     //Start rendering data to the HTML
-//     //THEN get the lat and long out of the response object 
-//     //Next call the makeOneCallRequest(lat, long) and pass in the lat and long 
+//Start rendering data to the HTML
+//  THEN get the lat and long out of the response object 
+//  Next call the makeOneCallRequest(lat, long) and pass in the lat and long 
 //     )}
 
+var apiKey = "b00842725560772b42346de28aa7a4f1";
+ function makeOneCallRequest(){
 
-// function makeOneCallRequest(lat, lon){
+  var queryUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&units=imperial&exclude=minutely,alerts,hourly&appid=b00842725560772b42346de28aa7a4f1";
+
+$.ajax ({
+
+  url: queryUrl,
+  method: "GET",
+
+}).then(function (response) {
+
+  console.log(response);
+  console.log(response.lat);
+  console.log(response.lon);
+  console.log(response.current);
+  console.log(response.current.uvi);
+  console.log(response.daily);
+  console.log(response.current.weather[0].icon);
+  console.log(response.current.wind_speed);
+  console.log(response.current.temp);
+  console.log(response.current.humidity);
+
+
+
+})
+
+}
+makeOneCallRequest();
+
+
+
+
+
+
+
+
+
+
+
+
 // //then build URL 
 // //next make the request to the URL with JQuery ajax
+
+
+
+
+
+
+
 
 // //can use one call api for 5 day forecast and UVI
 
