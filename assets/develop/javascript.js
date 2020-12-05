@@ -13,10 +13,14 @@ var apiKey = "b00842725560772b42346de28aa7a4f1";
 
 
 //Variables for Rendering Current Data
+var container = $("#container");
+// var date = $("#<h4>");
 var name = $("<h4>");
 var temperature = $("<h4>");
 var humidity = $("<h4>");
 var windSpeed = $("<h4>");
+var uvIndex = $("<h4>");
+var icon = $("<h4>");
 //var weatherIcon = 
 
 
@@ -41,12 +45,40 @@ function weatherRequest() {
     console.log(response.main.humidity);
     console.log(response.wind.speed);
     console.log(response.weather[0].icon);
+    // var city = $("<h1>").text(response.name);
+    // $(".card-body").append(city);
+    name.text("City:" + response.name);
+    temperature.text("Temperature:" + response.main.temp);
+
+
+    $.ajax({
+
+      url: "https://api.openweathermap.org/data/2.5/uvi?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&appid=" + apiKey,
+      method: "GET"
+
+
+    }).then(function (uvresponse) {
+      console.log(uvresponse);
+      // $(".card-body").text(uvresponse.value);
+    })
+
+
 
   })
 
 }
 weatherRequest();
 
+
+function appendCurrentForecast() {
+  container.append(
+  name,
+  temperature,
+  humidity,
+  windSpeed,
+  uvIndex,
+  icon)
+}
 
 // Event Listener for the Search Button
 searchButton.click(function (event) {
@@ -71,31 +103,38 @@ searchButton.click(function (event) {
 //     )}
 
 var apiKey = "b00842725560772b42346de28aa7a4f1";
- function makeOneCallRequest(){
+function makeOneCallRequest() {
 
   var queryUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&units=imperial&exclude=minutely,alerts,hourly&appid=b00842725560772b42346de28aa7a4f1";
 
-$.ajax ({
+  $.ajax({
 
-  url: queryUrl,
-  method: "GET",
+    url: queryUrl,
+    method: "GET",
 
-}).then(function (response) {
+  }).then(function (response) {
 
-  console.log(response);
-  console.log(response.lat);
-  console.log(response.lon);
-  console.log(response.current);
-  console.log(response.current.uvi);
-  console.log(response.daily);
-  console.log(response.current.weather[0].icon);
-  console.log(response.current.wind_speed);
-  console.log(response.current.temp);
-  console.log(response.current.humidity);
+    console.log(response);
+    console.log(response.lat);
+    console.log(response.lon);
+    console.log(response.current);
+    console.log(response.current.uvi);
+    console.log(response.daily);
+    console.log(response.current.weather[0].icon);
+    console.log(response.current.wind_speed);
+    console.log(response.current.temp);
+    console.log(response.current.humidity);
+    var iconcode = response.current.weather[0].icon;
+    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+    // var image = $("<img>").attr("src", iconurl);
+
+    // var uv = $("<p>").text(response.daily[0].uvi);
+
+    // $(".card-body").append(image, uv);
 
 
 
-})
+  })
 
 }
 makeOneCallRequest();
