@@ -33,13 +33,21 @@ function weatherRequest() {
     method: "GET",
   }).then(function (response) {
     console.log(response);
-     console.log(response.city,name);
+     console.log(response.city.name);
      console.log(response.list[0].main.temp);
-    // console.log(response.main.humidity);
-    // console.log(response.wind.speed);
-    // console.log(response.weather[0].icon);
+     console.log(response.list[0].main.humidity);
+     console.log(response.list[0].wind.speed);
+    console.log(response.list[0].weather[0].icon);
 
-    var iconcode = response.weather[0].icon;
+    for (var i=0; i<5;i++){
+      
+      console.log(response.list[i].weather[0].icon)
+      console.log(response.list[i].main.temp)
+      console.log(response.list[i].main.humidity)
+
+    }
+
+    var iconcode = response.list[0].weather[0].icon;
     var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
     console.log(iconurl);
 
@@ -47,17 +55,22 @@ function weatherRequest() {
     $("#currentForecast").append(image);
 
     //Rendering Current Weather API values to HTML
-    var cityEl = $("<h4>").text(response.name);
+    var cityEl = $("<h4>").text(response.city.name);
     var currentDay = $("<h4>").text(moment().format("dddd, MMMM Do YYYY"));
     var temperature = $("<h4>").text(
-      "Temperature:\n" + response.main.temp + "\nF"
+      "Temperature:\n" + response.list[0].main.temp + "\nF"
     );
     var humidity = $("<h4>").text(
-      "Humidity:\n" + response.main.humidity + "\n%"
+      "Humidity:\n" + response.list[0].main.humidity + "\n%"
     );
     var windSpeed = $("<h4>").text(
-      "Wind Speed:\n" + response.wind.speed + "\nmph"
+      "Wind Speed:\n" + response.list[0].wind.speed + "\nmph"
     );
+
+    //Render Future Weather Conditions
+    var newDay = moment().add(i, 'days');
+    var fiveDay =  newDay.format("dddd, MMMM Do YYYY");
+   
     //Append Values to HTML
     $("#currentForecast").append(
       cityEl,
@@ -67,34 +80,29 @@ function weatherRequest() {
       windSpeed
     );
 
-    // $.ajax({
-    //   url:
-    //     "https://api.openweathermap.org/data/2.5/uvi?lat=" +
-    //     response.coord.lat +
-    //     "&lon=" +
-    //     response.coord.lon +
-    //     "&appid=" +
-    //     apiKey,
-    //   method: "GET",
-    // }).then(function (uvresponse) {
-    //   console.log(uvresponse);
-    //   var uvIndex = $("<h4>").text("UV Index:\n" + uvresponse.value);
-    //   $("#currentForecast").append(uvIndex);
-    // });
+    // $("#fiveDay").append(
+
+
+
+
+    // );
+
+    $.ajax({
+      url:
+        "https://api.openweathermap.org/data/2.5/uvi?lat=" +
+        response.city.coord.lat +
+        "&lon=" +
+        response.city.coord.lon +
+        "&appid=" +
+        apiKey,
+      method: "GET",
+    }).then(function (uvresponse) {
+      console.log(uvresponse);
+      var uvIndex = $("<h4>").text("UV Index:\n" + uvresponse.value);
+      $("#currentForecast").append(uvIndex);
+    });
    
-    // $.ajax({
-    //   url:
-    //     //"https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&excludeminutely,hourly,alerts&appid=" + apiKey,
-        
-    //     "http://api.openweathermap.org/data/2.5/forecast?q=" + responseForecast.city + "&appid" + apiKey,
-        
-        
-    //   method: "GET",
-    // }).then(function (responseForecast) {
-    //   console.log(responseForecast);
-      
-     
-    // });
+   
   });
 }
 weatherRequest();
