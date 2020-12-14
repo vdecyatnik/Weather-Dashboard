@@ -7,7 +7,7 @@ var searchButton = $("#searchButton");
 // Current weather API
 var apiKey = "b00842725560772b42346de28aa7a4f1";
 
-// //Variables for Rendering Current Data
+//Variables for Rendering Current Data
 var container = $("#container");
 var name = $("<h4>");
 var temperature = $("<h4>");
@@ -16,6 +16,10 @@ var windSpeed = $("<h4>");
 var uvIndex = $("<h4>");
 var icon = $("<h4>");
 var weatherIcon = $("<img>");
+
+// Future Weather Conditions
+// var newDay = moment().add(5, "days");
+// var fiveDay = newDay.format("dddd, MMMM Do YYYY");
 
 //Current Weather APi Response
 
@@ -33,19 +37,11 @@ function weatherRequest() {
     method: "GET",
   }).then(function (response) {
     console.log(response);
-     console.log(response.city.name);
-     console.log(response.list[0].main.temp);
-     console.log(response.list[0].main.humidity);
-     console.log(response.list[0].wind.speed);
+    console.log(response.city.name);
+    console.log(response.list[0].main.temp);
+    console.log(response.list[0].main.humidity);
+    console.log(response.list[0].wind.speed);
     console.log(response.list[0].weather[0].icon);
-
-    for (var i=0; i<5;i++){
-      
-      console.log(response.list[i].weather[0].icon)
-      console.log(response.list[i].main.temp)
-      console.log(response.list[i].main.humidity)
-
-    }
 
     var iconcode = response.list[0].weather[0].icon;
     var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
@@ -66,11 +62,30 @@ function weatherRequest() {
     var windSpeed = $("<h4>").text(
       "Wind Speed:\n" + response.list[0].wind.speed + "\nmph"
     );
+    for (var i = 1; i < 6; i++) {
+      var newDay = moment().add(i, "days");
+      var fiveDay = newDay.format("dddd, MMMM Do YYYY");
 
-    //Render Future Weather Conditions
-    var newDay = moment().add(i, 'days');
-    var fiveDay =  newDay.format("dddd, MMMM Do YYYY");
-   
+      
+      var fiveDate = $("<h4>").text(newDay);
+      var fiveTemp = $("<h4>").text(response.list[i].main.temp);
+      var fiveHum = $("<h4>").text(response.list[i].main.humidity);
+
+      $("#containerTwo").append(
+        fiveDate,
+        fiveTemp,
+        fiveHum,
+        iconfiveDay
+
+      )
+  
+
+
+      console.log(newDay);
+      console.log(response.list[i].main.temp);
+      console.log(response.list[i].main.humidity);
+    }
+
     //Append Values to HTML
     $("#currentForecast").append(
       cityEl,
@@ -79,14 +94,8 @@ function weatherRequest() {
       humidity,
       windSpeed
     );
-
-    // $("#fiveDay").append(
-
-
-
-
-    // );
-
+      
+  
     $.ajax({
       url:
         "https://api.openweathermap.org/data/2.5/uvi?lat=" +
@@ -101,8 +110,6 @@ function weatherRequest() {
       var uvIndex = $("<h4>").text("UV Index:\n" + uvresponse.value);
       $("#currentForecast").append(uvIndex);
     });
-   
-   
   });
 }
 weatherRequest();
