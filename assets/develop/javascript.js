@@ -80,11 +80,11 @@ function weatherRequest() {
   
 
       $("#containerTwo").append(
-        
+        imageTwo,
         fiveDate,
         fiveTemp,
         fiveHum,
-        imageTwo
+        
         
         
 
