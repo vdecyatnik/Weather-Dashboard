@@ -1,5 +1,5 @@
 // Variables
-var currentDay = moment().format("ddd, hA");
+var currentDay = moment().format("MMM Do YY");
 console.log(currentDay);
 
 var searchButton = $("#searchButton");
@@ -49,7 +49,7 @@ function weatherRequest() {
 
     //Rendering Current Weather API values to HTML
     var cityEl = $("<h4>").text(response.city.name);
-    var currentDay = $("<h4>").text(moment().format("ddd, hA"));
+    var currentDay = $("<h4>").text(moment().format("MMM Do YY"));
     var temperature = $("<h4>").text(
       "Temperature:\n" + response.list[0].main.temp + "\nF"
     );
@@ -61,20 +61,31 @@ function weatherRequest() {
     );
     for (var i = 1; i < 6; i++) {
       var newDay = moment().add(i, "d");
-      var fiveDay = newDay.format("ddd, hA");   
+      var fiveDay = newDay.format("MMM Do YY");   
       var iconfiveDay= response.list[i].weather[0].icon;
-      var iconurlTwo = "http://openweathermap.org/img/w/" + iconfiveDay + ".png";
+      console.log(iconfiveDay);
+      var iconurlTwo = "http://openweathermap.org/img/w/" + iconfiveDay+ ".png";
+
+      var imageTwo = $("<img>").attr("src", iconurlTwo);
+      $("#fiveDayForecast").append(imageTwo);
+   
+
+     
       
-      
+      //Append fiveday Forecast
       var fiveDate = $("<h4>").text(fiveDay);
       var fiveTemp = $("<h4>").text("Temperature:" +response.list[i].main.temp +"\nF");
       var fiveHum = $("<h4>").text("Humidity:" + response.list[i].main.humidity + "\%");
+     
+  
 
-      $("#fiveDayForecast").append(
+      $("#containerTwo").append(
         
         fiveDate,
         fiveTemp,
         fiveHum,
+        imageTwo
+        
         
 
       )
