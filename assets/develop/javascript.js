@@ -17,7 +17,6 @@ var uvIndex = $("<h4>");
 var icon = $("<h4>");
 var weatherIcon = $("<img>");
 
-
 //Current Weather APi Response
 
 function weatherRequest() {
@@ -61,36 +60,27 @@ function weatherRequest() {
     );
     for (var i = 1; i < 6; i++) {
       var newDay = moment().add(i, "d");
-      var fiveDay = newDay.format("MMM Do YY");   
-      var iconfiveDay= response.list[i].weather[0].icon;
+      var fiveDay = newDay.format("MMM Do YY");
+      var iconfiveDay = response.list[i].weather[0].icon;
       console.log(iconfiveDay);
-      var iconurlTwo = "http://openweathermap.org/img/w/" + iconfiveDay+ ".png";
+      var iconurlTwo =
+        "http://openweathermap.org/img/w/" + iconfiveDay + ".png";
 
       var imageTwo = $("<img>").attr("src", iconurlTwo);
       $("#fiveDayForecast").append(imageTwo);
-   
 
-     
-      
       //Append fiveday Forecast
+      var newDiv = $("<div></div>"); //append to five day row
       var fiveDate = $("<h4>").text(fiveDay);
-      var fiveTemp = $("<h4>").text("Temperature:" +response.list[i].main.temp +"\nF");
-      var fiveHum = $("<h4>").text("Humidity:" + response.list[i].main.humidity + "\%");
-     
-  
+      var fiveTemp = $("<h4>").text(
+        "Temperature:" + response.list[i].main.temp + "\nF"
+      );
+      var fiveHum = $("<h4>").text(
+        "Humidity:" + response.list[i].main.humidity + "%"
+      );
 
-      $("#containerTwo").append(
-        imageTwo,
-        fiveDate,
-        fiveTemp,
-        fiveHum,
-        
-        
-        
-
-      )
-  
-
+      $(".fiveDay").append(newDiv);
+      newDiv.append(imageTwo, fiveDate, fiveTemp, fiveHum);
 
       console.log(newDay);
       console.log(response.list[i].main.temp);
@@ -105,8 +95,7 @@ function weatherRequest() {
       humidity,
       windSpeed
     );
-      
-  
+
     $.ajax({
       url:
         "https://api.openweathermap.org/data/2.5/uvi?lat=" +
