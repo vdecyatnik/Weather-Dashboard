@@ -4,6 +4,8 @@ console.log(currentDay);
 
 var searchButton = $("#searchButton");
 
+//Searched Cities Array
+var savedCities = [];
 // Current weather API
 var apiKey = "b00842725560772b42346de28aa7a4f1";
 
@@ -47,6 +49,7 @@ function weatherRequest() {
     $("#currentForecast").append(image);
 
     //Rendering Current Weather API values to HTML
+    var header = $("<h2>").text("Current Forecast");
     var cityEl = $("<h4>").text(response.city.name);
     var currentDay = $("<h4>").text(moment().format("MMM Do YY"));
     var temperature = $("<h4>").text(
@@ -71,6 +74,7 @@ function weatherRequest() {
 
       //Append fiveday Forecast
       var newDiv = $("<div></div>"); //append to five day row
+
       var fiveDate = $("<h4>").text(fiveDay);
       var fiveTemp = $("<h4>").text(
         "Temperature:" + response.list[i].main.temp + "\nF"
@@ -89,6 +93,7 @@ function weatherRequest() {
 
     //Append Values to HTML
     $("#currentForecast").append(
+      header,
       cityEl,
       currentDay,
       temperature,
@@ -114,13 +119,57 @@ function weatherRequest() {
 }
 weatherRequest();
 
+
+function renderButtons() {
+
+
+$("#searchedCities").empty();
+
+
+
+for (var i=0; i<savedCities.length;i++){
+
+
+  $("#searchedCities").append("<button>" + savedCities[i] +  "</button>")
+
+
+
+  console.log(i,savedCities[i]);
+}
+
+
+
+
+
+
+
+
+
+
+}
+console.log(savedCities);
+
+
+
 // Event Listener for the Search Button
 searchButton.click(function (event) {
-  var citySearched = $("#citySearch").val();
+   var newCity = $("#citySearch").val();
   console.log(searchButton);
-  console.log(citySearched);
+  console.log(citySearch);
   weatherRequest();
+
+//var newCity = $("#citySearch").val();
+savedCities.push(newCity);
+console.log(newCity);
+
+
+  renderButtons();
+
+  // localStorage.setItem("cities", JSON.stringify(citySearch));
+  // console.log(localStorage);
 });
+
+
 
 // THEN i am presented with current and future conditions for that city and that city is added to the search history
 
