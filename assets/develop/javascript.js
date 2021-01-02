@@ -128,13 +128,8 @@ $("#searchedCities").empty();
 
 
 for (var i=0; i<savedCities.length;i++){
+$("#searchedCities").append("<button>" + savedCities[i] +  "</button>")
 
-
-  $("#searchedCities").append("<button>" + savedCities[i] +  "</button>")
-
-
-
-  console.log(i,savedCities[i]);
 }
 
 
