@@ -6,6 +6,10 @@ var searchButton = $("#searchButton");
 
 //Searched Cities Array
 var savedCities = [];
+
+
+
+
 // Current weather API
 var apiKey = "b00842725560772b42346de28aa7a4f1";
 
@@ -21,7 +25,7 @@ var weatherIcon = $("<img>");
 
 //Current Weather APi Response
 
-function weatherRequest() {
+function weatherRequest(  ) {
   // user input of city name
   var city = $("#citySearch").val();
 
@@ -34,21 +38,27 @@ function weatherRequest() {
 
     method: "GET",
   }).then(function (response) {
-    console.log(response);
-    console.log(response.city.name);
-    console.log(response.list[0].main.temp);
-    console.log(response.list[0].main.humidity);
-    console.log(response.list[0].wind.speed);
-    console.log(response.list[0].weather[0].icon);
-
+    // console.log(response);
+    // console.log(response.city.name);
+    // console.log(response.list[0].main.temp);
+    // console.log(response.list[0].main.humidity);
+    // console.log(response.list[0].wind.speed);
+    // console.log(response.list[0].weather[0].icon);
+    
     var iconcode = response.list[0].weather[0].icon;
     var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-    console.log(iconurl);
+    // console.log(iconurl);
 
+  
+    
+    $("#currentForecast").empty();    
+    
+    //Rendering Current Weather API values to HTML
+
+
+    
     var image = $("<img>").attr("src", iconurl);
     $("#currentForecast").append(image);
-
-    //Rendering Current Weather API values to HTML
     var header = $("<h2>").text("Current Forecast");
     var cityEl = $("<h4>").text(response.city.name);
     var currentDay = $("<h4>").text(moment().format("MMM Do YY"));
@@ -61,11 +71,15 @@ function weatherRequest() {
     var windSpeed = $("<h4>").text(
       "Wind Speed:\n" + response.list[0].wind.speed + "\nmph"
     );
+    
+
+    $(".fiveDay").empty();
     for (var i = 1; i < 6; i++) {
+     
       var newDay = moment().add(i, "d");
       var fiveDay = newDay.format("MMM Do YY");
       var iconfiveDay = response.list[i].weather[0].icon;
-      console.log(iconfiveDay);
+      // console.log(iconfiveDay);
       var iconurlTwo =
         "http://openweathermap.org/img/w/" + iconfiveDay + ".png";
 
@@ -73,27 +87,33 @@ function weatherRequest() {
       $("#fiveDayForecast").append(imageTwo);
 
       //Append fiveday Forecast
-      var newDiv = $("<div></div>"); //append to five day row
+      var newDiv = $(`<div id="fiveDay" class="card p-2  m-1"</div>`); //append to five day row
 
       var fiveDate = $("<h4>").text(fiveDay);
       var fiveTemp = $("<h4>").text(
-        "Temperature:" + response.list[i].main.temp + "\nF"
+        "Temp:" + response.list[i].main.temp + "\nF"
       );
       var fiveHum = $("<h4>").text(
         "Humidity:" + response.list[i].main.humidity + "%"
       );
 
       $(".fiveDay").append(newDiv);
-      newDiv.append(imageTwo, fiveDate, fiveTemp, fiveHum);
+      newDiv.append(
+        imageTwo, 
+        fiveDate, 
+        fiveTemp, 
+        fiveHum);
 
-      console.log(newDay);
-      console.log(response.list[i].main.temp);
-      console.log(response.list[i].main.humidity);
+      // console.log(newDay);
+      // console.log(response.list[i].main.temp);
+      // console.log(response.list[i].main.humidity);
     }
 
     //Append Values to HTML
     $("#currentForecast").append(
+     
       header,
+      image,
       cityEl,
       currentDay,
       temperature,
@@ -111,7 +131,7 @@ function weatherRequest() {
         apiKey,
       method: "GET",
     }).then(function (uvresponse) {
-      console.log(uvresponse);
+      // console.log(uvresponse);
       var uvIndex = $("<h4>").text("UV Index:\n" + uvresponse.value);
       $("#currentForecast").append(uvIndex);
     });
@@ -119,51 +139,37 @@ function weatherRequest() {
 }
 weatherRequest();
 
-
 function renderButtons() {
+  $("#searchedCities").empty();
 
-
-$("#searchedCities").empty();
-
-
-
-for (var i=0; i<savedCities.length;i++){
-$("#searchedCities").append("<button>" + savedCities[i] +  "</button>")
-
+  for (var i = 0; i < savedCities.length; i++) {
+    $("#searchedCities").append(
+      `<button type="button" id="data-city" class="btn btn-light">${savedCities[i]}<br></button>`
+    );
+  }
 }
-
-
-
-
-
-
-
-
-
-
-}
-console.log(savedCities);
-
 
 
 // Event Listener for the Search Button
 searchButton.click(function (event) {
-   var newCity = $("#citySearch").val();
+  event.preventDefault();
+  var newCity = $("#citySearch").val();
   console.log(searchButton);
-  console.log(citySearch);
+
   weatherRequest();
 
-//var newCity = $("#citySearch").val();
-savedCities.push(newCity);
-console.log(newCity);
-
+  //var newCity = $("#citySearch").val();
+  savedCities.push(newCity);
+  console.log(savedCities);
+  
 
   renderButtons();
 
-  // localStorage.setItem("cities", JSON.stringify(citySearch));
-  // console.log(localStorage);
-});
+  
 
+   localStorage.setItem("cities", JSON.stringify(savedCities));
+   console.log(localStorage);
+});
 
 
 // THEN i am presented with current and future conditions for that city and that city is added to the search history
