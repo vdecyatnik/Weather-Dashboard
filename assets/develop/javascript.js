@@ -95,9 +95,7 @@ function weatherRequest(  ) {
         fiveTemp, 
         fiveHum);
 
-      // console.log(newDay);
-      // console.log(response.list[i].main.temp);
-      // console.log(response.list[i].main.humidity);
+
     }
 
     //Append Values to HTML
@@ -130,15 +128,28 @@ function weatherRequest(  ) {
 }
 weatherRequest();
 
-function renderButtons() {
-  $("#searchedCities").empty();
 
-  for (var i = 0; i < savedCities.length; i++) {
-    $("#searchedCities").append(
-      `<button type="button" id="data-city" class="btn btn-light">${savedCities[i]}<br></button>`
-    );
+
+function renderButtons(){
+
+  $("searchedCities").empty();
+
+  for (var i =0; i < savedCities.length; i++){
+    var a = $("<button>");
+
+    a.addClass("btn btn-outline-dark citybutton");
+
+    a.attr("data-city", savedCities[i]);
+
+    a.text(savedCities[i]);
+
+    $("#searchedCities").append(a);
   }
+
+
 }
+
+
 
 
 
@@ -163,3 +174,4 @@ searchButton.click(function (event) {
 
  
 });
+
