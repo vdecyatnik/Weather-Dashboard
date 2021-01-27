@@ -1,17 +1,3 @@
-// Variables
-var currentDay = moment().format("MMM Do YY");
-console.log(currentDay);
-
-var searchButton = $("#searchButton");
-
-//Searched Cities Array
-var savedCities = JSON.parse(localStorage.getItem("cities")) || [];
-
-
-// Current weather API
-var apiKey = "b00842725560772b42346de28aa7a4f1";
-
-//Variables for Rendering Current Data
 var container = $("#container");
 var name = $("<h4>");
 var temperature = $("<h4>");
@@ -20,12 +6,13 @@ var windSpeed = $("<h4>");
 var uvIndex = $("<h4>");
 var icon = $("<h4>");
 var weatherIcon = $("<img>");
+var searchButton = $("#searchButton");
+var apiKey = "b00842725560772b42346de28aa7a4f1";
+var currentDay = moment().format("MMM Do YY");
 
-//Current Weather APi Response
-    
-function weatherRequest(  ) {
+function weatherRequest(city) {
   // user input of city name
-  var city = $("#citySearch").val();
+ 
 
   $.ajax({
     url:
@@ -36,18 +23,13 @@ function weatherRequest(  ) {
 
     method: "GET",
   }).then(function (response) {
- 
     var iconcode = response.list[0].weather[0].icon;
     var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-    
-  
-    
-    $("#currentForecast").empty();    
-    
+
+    $("#currentForecast").empty();
+
     //Rendering Current Weather API values to HTML
 
-
-    
     var image = $("<img>").attr("src", iconurl);
     $("#currentForecast").append(image);
     var header = $("<h2>").text("Current Forecast");
@@ -62,11 +44,9 @@ function weatherRequest(  ) {
     var windSpeed = $("<h4>").text(
       "Wind Speed:\n" + response.list[0].wind.speed + "\nmph"
     );
-    
 
     $(".fiveDay").empty();
     for (var i = 1; i < 6; i++) {
-     
       var newDay = moment().add(i, "d");
       var fiveDay = newDay.format("MMM Do YY");
       var iconfiveDay = response.list[i].weather[0].icon;
@@ -89,18 +69,11 @@ function weatherRequest(  ) {
       );
 
       $(".fiveDay").append(newDiv);
-      newDiv.append(
-        imageTwo, 
-        fiveDate, 
-        fiveTemp, 
-        fiveHum);
-
-
+      newDiv.append(imageTwo, fiveDate, fiveTemp, fiveHum);
     }
 
     //Append Values to HTML
     $("#currentForecast").append(
-     
       header,
       image,
       cityEl,
@@ -126,52 +99,44 @@ function weatherRequest(  ) {
     });
   });
 }
-weatherRequest();
 
+function renderButtons() {
+  $("#searchedCities").empty();
 
-
-function renderButtons(){
-
-  $("searchedCities").empty();
-
-  for (var i =0; i < savedCities.length; i++){
+  var localArray = JSON.parse(localStorage.getItem("cities"));
+  for (var i = 0; i < localArray.length; i++) {
     var a = $("<button>");
 
     a.addClass("btn btn-outline-dark citybutton");
 
-    a.attr("data-city", savedCities[i]);
+    a.attr("data-city", localArray[i]);
 
-    a.text(savedCities[i]);
+    a.text(localArray[i]);
 
     $("#searchedCities").append(a);
   }
-
-
+}
+if (localStorage.getItem("cities") === null) {
+  localStorage.setItem("cities", JSON.stringify([]));
 }
 
-
-
-
+renderButtons();
 
 // Event Listener for the Search Button
 searchButton.click(function (event) {
   event.preventDefault();
   var newCity = $("#citySearch").val();
-  console.log(searchButton);
-
-  weatherRequest();
 
  
 
-  savedCities.push(newCity);
-  console.log(savedCities);
+  weatherRequest(newCity);
+
   
-
+  var localArray = JSON.parse(localStorage.getItem("cities"));
+  if (!localArray.includes(newCity)) {
+    localArray.push(newCity);
+  }
+  localStorage.setItem("cities", JSON.stringify(localArray));
   renderButtons();
-
-  localStorage.setItem("cities", JSON.stringify(savedCities));
-  console.log(localStorage);
-
- 
 });
 
