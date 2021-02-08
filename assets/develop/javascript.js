@@ -120,6 +120,15 @@ if (localStorage.getItem("cities") === null) {
   localStorage.setItem("cities", JSON.stringify([]));
 }
 
+
+
+$("#searchedCities").on("click", "[data-city]", function(event) {
+  var dataId = $(this).attr("data-city");
+  weatherRequest($(this).attr("data-city"));
+  console.log(event);
+});
+
+
 renderButtons();
 
 // Event Listener for the Search Button
