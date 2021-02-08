@@ -12,7 +12,6 @@ var currentDay = moment().format("MMM Do YY");
 
 function weatherRequest(city) {
   // user input of city name
- 
 
   $.ajax({
     url:
@@ -96,6 +95,17 @@ function weatherRequest(city) {
       // console.log(uvresponse);
       var uvIndex = $("<h4>").text("UV Index:\n" + uvresponse.value);
       $("#currentForecast").append(uvIndex);
+
+      if(uvresponse.value > 8 ) {
+        uvIndex.addClass("text-danger");
+        
+      }else if (uvresponse.value > 6) {
+        uvIndex.css("font-color", "orange");
+      }else if (uvresponse.value > 3 ) {
+        uvIndex.addClass("text-warning");
+      }else {
+        uvIndex.addClass("text-success");
+      }
     });
   });
 }
@@ -120,10 +130,7 @@ if (localStorage.getItem("cities") === null) {
   localStorage.setItem("cities", JSON.stringify([]));
 }
 
-
-
-$("#searchedCities").on("click", "[data-city]", function(event) {
-  var dataId = $(this).attr("data-city");
+$("#searchedCities").on("click", "[data-city]", function (event) {
   weatherRequest($(this).attr("data-city"));
   console.log(event);
 });
@@ -136,11 +143,8 @@ searchButton.click(function (event) {
   event.preventDefault();
   var newCity = $("#citySearch").val();
 
- 
-
   weatherRequest(newCity);
 
-  
   var localArray = JSON.parse(localStorage.getItem("cities"));
   if (!localArray.includes(newCity)) {
     localArray.push(newCity);
@@ -148,4 +152,3 @@ searchButton.click(function (event) {
   localStorage.setItem("cities", JSON.stringify(localArray));
   renderButtons();
 });
-
