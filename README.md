@@ -1,19 +1,38 @@
 # Weather-Dashboard
 
-# Acceptance Criteria
+## Table of Contents
 
-```
-GIVEN a weather dashboard with form inputs
-WHEN I search for a city
-THEN I am presented with current and future conditions for that city and that city is added to the search history
-WHEN I view current weather conditions for that city
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
-WHEN I open the weather dashboard
-THEN I am presented with the last searched city forecast
-```
+* [Description](#Description)
+* [Technologies Used](#TechnologiesUsed)
+* [Images](#Images)
+* [Links](#Links)
+
+
+# Description
+
+This is a simple weather application using the Open Weather API to get the current and five day weather forecast. Your search history is saved in local storage and you are able to access your previously searched cities by clicking on the buttons in the search history list. 
+
+# Technologies Used
+
+* JQuery
+* Bootstrap
+* JavaScript
+* Open Weather API
+* AJAX
+
+# Images
+ 
+ This image shows the opening page before entering a search. 
+![homepage](searchPage.png)
+
+This image displays the application after searching for a city.
+
+![search](weatherDashboard.png)
+
+# Links
+
+Git Hub Repo
+
+ https://github.com/vdecyatnik/Weather-Dashboard 
+
+Deployed Application

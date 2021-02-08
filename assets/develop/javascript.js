@@ -6,6 +6,7 @@ var windSpeed = $("<h4>");
 var uvIndex = $("<h4>");
 var icon = $("<h4>");
 var weatherIcon = $("<img>");
+
 var searchButton = $("#searchButton");
 var apiKey = "b00842725560772b42346de28aa7a4f1";
 var currentDay = moment().format("MMM Do YY");
@@ -58,7 +59,7 @@ function weatherRequest(city) {
 
       //Append fiveday Forecast
       var newDiv = $(`<div id="fiveDay" class="card p-2  m-1"</div>`); //append to five day row
-
+      var headerTwo = $("<h2>").text("Five Day Forecast");
       var fiveDate = $("<h4>").text(fiveDay);
       var fiveTemp = $("<h4>").text(
         "Temp:\n" + response.list[i].main.temp + "\nF"
@@ -66,11 +67,12 @@ function weatherRequest(city) {
       var fiveHum = $("<h4>").text(
         "Humidity:\n" + response.list[i].main.humidity + "%"
       );
-
+      
       $(".fiveDay").append(newDiv);
       newDiv.append(imageTwo, fiveDate, fiveTemp, fiveHum);
     }
 
+    $("#fiveDayForecast").append(headerTwo);
     //Append Values to HTML
     $("#currentForecast").append(
       header,
@@ -117,7 +119,7 @@ function renderButtons() {
   for (var i = 0; i < localArray.length; i++) {
     var a = $("<button>");
 
-    a.addClass("btn btn-outline-dark citybutton");
+    a.addClass("btn btn-outline-dark citybutton ");
 
     a.attr("data-city", localArray[i]);
 
