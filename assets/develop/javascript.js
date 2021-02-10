@@ -16,7 +16,7 @@ function weatherRequest(city) {
 
   $.ajax({
     url:
-      "http://api.openweathermap.org/data/2.5/forecast?q=" +
+      "https://api.openweathermap.org/data/2.5/forecast?q=" +
       city +
       "&units=imperial&appid=" +
       apiKey,
@@ -24,7 +24,7 @@ function weatherRequest(city) {
     method: "GET",
   }).then(function (response) {
     var iconcode = response.list[0].weather[0].icon;
-    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+    var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
 
     $("#currentForecast").empty();
 
@@ -52,13 +52,13 @@ function weatherRequest(city) {
       var iconfiveDay = response.list[i].weather[0].icon;
       // console.log(iconfiveDay);
       var iconurlTwo =
-        "http://openweathermap.org/img/w/" + iconfiveDay + ".png";
+        "https://openweathermap.org/img/w/" + iconfiveDay + ".png";
 
       var imageTwo = $("<img>").attr("src", iconurlTwo);
       $("#fiveDayForecast").append(imageTwo);
 
       //Append fiveday Forecast
-      var newDiv = $(`<div id="fiveDay" class="card p-2  m-1"</div>`); //append to five day row
+      var newDiv = $(`<div id= "fiveDay" class="card p-2  m-1" </div>`);
       var headerTwo = $("<h2>").text("Five Day Forecast");
       var fiveDate = $("<h4>").text(fiveDay);
       var fiveTemp = $("<h4>").text(
