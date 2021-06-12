@@ -67,11 +67,11 @@ function weatherRequest(city) {
       var fiveHum = $("<h4>").text(
         "Humidity:\n" + response.list[i].main.humidity + "%"
       );
-      
+      $("#fiveDayForecast").empty()
       $(".fiveDay").append(newDiv);
       newDiv.append(imageTwo, fiveDate, fiveTemp, fiveHum);
     }
-
+   
     $("#fiveDayForecast").append(headerTwo);
     //Append Values to HTML
     $("#currentForecast").append(
@@ -142,7 +142,8 @@ renderButtons();
 
 // Event Listener for the Search Button
 searchButton.click(function (event) {
-  event.preventDefault();
+
+  $("#fiveDayForecaset").empty();
   var newCity = $("#citySearch").val();
 
   weatherRequest(newCity);
