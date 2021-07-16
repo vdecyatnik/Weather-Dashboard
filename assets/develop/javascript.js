@@ -103,12 +103,10 @@ function weatherRequest(city) {
         uvIndex.addClass("text-danger");
         
       }else if (uvresponse.value > 6) {
-        uvIndex.css("font-color", "orange");
-      }else if (uvresponse.value > 3 ) {
         uvIndex.addClass("text-warning");
-      }else {
+      }else if(uvresponse.value <= 3 ) 
         uvIndex.addClass("text-success");
-      }
+      
     });
   });
 }
