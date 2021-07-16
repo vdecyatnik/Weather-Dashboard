@@ -27,6 +27,7 @@ function weatherRequest(city) {
     var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
 
     $("#currentForecast").empty();
+    console.log(response);
 
     //Rendering Current Weather API values to HTML
 
@@ -119,8 +120,8 @@ function renderButtons() {
   for (var i = 0; i < localArray.length; i++) {
     var a = $("<button>");
 
-    a.addClass("btn btn-outline-dark citybutton ");
-
+    a.addClass("btn btn-block btn-outline-dark citybutton list-group-item ");
+  
     a.attr("data-city", localArray[i]);
 
     a.text(localArray[i]);
